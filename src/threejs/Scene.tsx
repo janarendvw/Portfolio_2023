@@ -45,6 +45,7 @@ function scene({}: Props) {
   const controlsRef = useRef<OrbitControls | null>(null);
   const artworkTextureRef = useRef<THREE.Texture | null>(null);
   const textureLoaderRef = useRef<THREE.TextureLoader | null>(null);
+  const modelRef = useRef<THREE.Group | null>(null);
 
 
   let canvas;
@@ -77,7 +78,7 @@ function scene({}: Props) {
       },
     ];
 
-    //load model
+    //load modelRef.current
 
     const loader = new GLTFLoader();
     const textureLoader = new THREE.TextureLoader();
@@ -112,18 +113,17 @@ function scene({}: Props) {
 
     const scene = new THREE.Scene();
 
-    let model: THREE.Group | undefined = undefined;
-
     loader.load(
       "/models/scene.glb",
       (gltf) => {
-        model = gltf.scene;
-        model.traverse((o: any) => {
+        modelRef.current = gltf.scene;
+        console.log(typeof modelRef.current)
+        modelRef.current.traverse((o: any) => {
           o.material = bakedMaterial;
           console.log(o)
         });
-        model.scale.set(1, 1, 1);
-        scene.add(model);
+        modelRef.current.scale.set(1, 1, 1);
+        scene.add(modelRef.current);
       },
       undefined,
       function (error) {
@@ -157,9 +157,9 @@ function scene({}: Props) {
 
     return () => {
       renderer.dispose();
-      if (model) {
-        scene.remove(model);
-        model.traverse((o) => {
+      if (modelRef.current) {
+        scene.remove(modelRef.current);
+        modelRef.current.traverse((o) => {
           if (o instanceof THREE.Mesh) {
             o.geometry.dispose();
             o.material.dispose();
@@ -216,7 +216,7 @@ function scene({}: Props) {
         z: 0.35,
         ease: "power3.out",
       });
-    } else if (overlay === "spotify" && cameraRef.current && controlsRef.current) {
+    } else if (overlay === "spotify" && cameraRef.current && controlsRef.current && modelRef.current) {
       gsap.to(cameraRef.current.position, {
         duration: 3,
         x: 3.5,
