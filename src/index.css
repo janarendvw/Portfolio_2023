@@ -1,25 +1,46 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
-@tailwind base;
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap');@tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 :root {
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
     box-sizing: border-box;
-    font-family: 'Monsterrat', sans-serif;
+    font-family: 'Open Sans', sans-serif;
     scroll-behavior: smooth;
 
 }
 
 html {
-    background: #121212;
+    background: #141414;
     color: #fff;
 }
 
-*{
+/* *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     overflow: hidden;
+} */
+
+.point {
+    position: absolute;
+    top: 50%;
+    left: 50%;
 }
+
+.visible {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.point .label
+{
+
+    transform: scale(0, 0);
+    transition: transform 0.2s ease-in-out;
+
+}
+
+.point.visible .label
+{
+    transform: scale(1, 1);
+} 

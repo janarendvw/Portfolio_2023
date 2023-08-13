@@ -1,11 +1,11 @@
-import Scene from '../threejs/Scene'
+import Scener3f from '../threejs/Scener3f'
+import { Canvas } from '@react-three/fiber'
 
-
-type Props = {}
-
-function Pageabout({}: Props) {
+function Pageabout() {
   return (
-    <div><Scene /></div>
+    <div className='w-screen h-screen fixed'>
+      <Canvas gl={{antialias: true}} ><Scener3f /></Canvas>
+    </div>
   )
 }
 

@@ -1,8 +1,6 @@
 import { Link } from 'react-router-dom'
 
-type Props = {}
-
-function Navbar({}: Props) {
+function Navbar() {
   return (
     <>
     <div className='flex gap-12 absolute top-8 right-12 tracking-wide font-medium'>
