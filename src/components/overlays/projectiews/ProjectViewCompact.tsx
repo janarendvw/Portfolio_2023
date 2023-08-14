@@ -13,27 +13,29 @@ function ProjectViewCompact({project}: {project: Project}) {
     <img
       src={project.image}
       alt={project.title}
-      className="w-full object-cover object-center"
+      className="w-full h-1/2 object-cover object-center"
     />
-    <div className="project-info flex-1 px-4 pb-4 pt-2 flex flex-col gap-4">
-      <div className="project-info-head flex-col gap-1 flex">
-        <h1 className="text-lg font-semibold text-white">
-          {project.title}
-        </h1>
-        <div className="flex gap-2">
-          {project.tech &&
-            project.tech.map((tech) => {
-              return (
-                <span className="text-xs bg-white/10 px-1 text-white opacity-50 hover:opacity-100 capitalize">
-                  {tech}
-                </span>
-              );
-            })}
+    <div className="project-info h-1/2 px-4 pb-4 pt-2 flex flex-col justify-between gap-4">
+      <div className="flex flex-col gap-4">
+        <div className="project-info-head flex-col gap-1 flex">
+          <h1 className="text-lg font-semibold text-white">
+            {project.title}
+          </h1>
+          <div className="flex gap-2">
+            {project.tech &&
+              project.tech.map((tech) => {
+                return (
+                  <span className="text-xs bg-white/10 px-1 text-white opacity-50 hover:opacity-100 capitalize">
+                    {tech}
+                  </span>
+                );
+              })}
+          </div>
         </div>
+        <p className="opacity-80 text-sm text-ellipsis overflow-clip line-clamp-2">
+          {project.description}
+        </p>
       </div>
-      <p className="opacity-80 text-sm min-h-15 max-h-15 text-ellipsis overflow-hidden line-clamp-3">
-        {project.description}
-      </p>
 
      {project.link && <a
         href={project.link}

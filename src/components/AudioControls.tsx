@@ -4,7 +4,7 @@ import { audioContext } from "../Contexts"
 function AudioControls() {
   const usedAudioContext = useContext(audioContext)
   const audioElementRef = useRef<HTMLAudioElement>(null)
-  const audioSource = "koya master4.mp3"
+  const audioSource = "sweeping forest.mp3"
 
   useEffect(() => {
     if (usedAudioContext.isPlaying) {
