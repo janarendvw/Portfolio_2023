@@ -1,8 +1,8 @@
 function Artwork() {
   return (
-    <>
-      <h1 className="text-4xl font-bold">Artwork</h1>
-      <p className="max-w-xl">
+    <div className="flex flex-col gap-12 my-24 px-8 items-center">
+      <h1 className="text-5xl font-semibold">Artwork</h1>
+      <p className="max-w-xl text-center">
         My graphic work consists out of several poster designs and 3d
         compositions. I like to experiment with different styles and techniques.
         I am always looking for new ways to improve my skills and learn new
@@ -16,7 +16,7 @@ function Artwork() {
       >
        <span className="material-symbols-rounded">view_in_ar</span> 3D Artwork
       </a>
-    </>
+    </div>
   );
 }
 

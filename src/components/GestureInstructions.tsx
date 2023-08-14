@@ -1,7 +1,7 @@
 const gestures = [
   {
     icon: "swipe",
-    text: "swipe to move",
+    text: "drag to move",
   },
     {
     icon: "pinch",
