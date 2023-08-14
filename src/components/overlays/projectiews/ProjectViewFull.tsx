@@ -11,15 +11,15 @@ function ProjectViewFull({project}: {project: Project}) {
   return (
     <div className="flex even:flex-row-reverse gap-24 w-full">
     <div className="project-info flex-1 flex flex-col gap-8 w-full">
-      <div className="project-info-head flex-col gap-1 flex bg-white/5 py-2 px-4 rounded">
-        <h1 className="text-lg font-semibold text-white">
+      <div className="project-info-head flex-col gap-1 flex bg-gray-100 dark:bg-zinc-800 py-2 px-4 rounded">
+        <h1 className="text-lg font-semibold">
           {project.title}
         </h1>
         <div className="flex gap-2">
           {project.tech &&
             project.tech.map((tech) => {
               return (
-                <span className="text-xs bg-white/10 px-1 text-white opacity-50 hover:opacity-100 capitalize">
+                <span className="text-xs bg-gray-200  dark:bg-zinc-700 px-1 opacity-50 hover:opacity-100 capitalize">
                   {tech}
                 </span>
               );
@@ -30,7 +30,7 @@ function ProjectViewFull({project}: {project: Project}) {
         <img
         src={project.image}
         alt={project.title}
-        className="w-full md:w-1/2 object-cover object-center rounded-lg"
+        className="w-full md:w-1/2 object-cover object-center rounded shadow"
             />
         <div className="flex flex-col gap-8">
           <p className="opacity-80 text-sm max-w-lg">

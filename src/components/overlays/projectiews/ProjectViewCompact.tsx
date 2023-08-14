@@ -9,7 +9,7 @@ type Project = {
 
 function ProjectViewCompact({project}: {project: Project}) {
   return (
-    <div className="flex flex-col w-full h-full justify-center rounded-lg overflow-clip bg-zinc-800 m-auto">
+    <div className="flex flex-col w-full h-full justify-center rounded-lg overflow-clip shadow-xl shadow-black/10 m-auto">
     <img
       src={project.image}
       alt={project.title}
@@ -18,14 +18,14 @@ function ProjectViewCompact({project}: {project: Project}) {
     <div className="project-info h-1/2 px-4 pb-4 pt-2 flex flex-col justify-between gap-4">
       <div className="flex flex-col gap-4">
         <div className="project-info-head flex-col gap-1 flex">
-          <h1 className="text-lg font-semibold text-white">
+          <h1 className="text-lg font-semibold">
             {project.title}
           </h1>
           <div className="flex gap-2">
             {project.tech &&
               project.tech.map((tech) => {
                 return (
-                  <span className="text-xs bg-white/10 px-1 text-white opacity-50 hover:opacity-100 capitalize">
+                  <span className="text-xs bg-gray-200 dark:bg-zinc-800 px-1 opacity-50 hover:opacity-100 capitalize">
                     {tech}
                   </span>
                 );

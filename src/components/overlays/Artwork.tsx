@@ -16,6 +16,8 @@ function Artwork() {
       >
        <span className="material-symbols-rounded">view_in_ar</span> 3D Artwork
       </a>
+
+      
     </div>
   );
 }

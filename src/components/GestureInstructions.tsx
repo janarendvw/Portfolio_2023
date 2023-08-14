@@ -18,7 +18,7 @@ function GestureInstructions() {
             <span className="material-symbols-rounded text-2xl">
               {gesture.icon}
             </span>
-            <span className="text-white text-sm">{gesture.text}</span>
+            <span className="text-sm">{gesture.text}</span>
           </div>
         );
       })}

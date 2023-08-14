@@ -12,7 +12,7 @@ function OverlayContainer() {
   return (
     <>
       <div
-        className={`min-h-screen w-full absolute flex flex-col bg-zinc-900 justify-between z-40 items-center backdrop-blur-md`}
+        className={`min-h-screen w-full absolute flex flex-col bg-white dark:bg-zinc-900 justify-between z-40 items-center backdrop-blur-md`}
       >
         <div className="">
           {usedAppContext.overlay === OverlayState.Artwork && <Artwork />}
@@ -26,7 +26,7 @@ function OverlayContainer() {
         onClick={() => {
           usedAppContext.setOverlay(OverlayState.null);
         }}
-        className="border border-white/20 hover:bg-white hover:text-black bg-zinc-700 duration-200 flex items-center justify-center p-5 rounded-full fixed bottom-5 left-1/2 -translate-x-1/2 z-50"
+        className="hover:shadow-lg hover:bg-white hover:text-black text-white bg-blue-600 duration-200 flex items-center justify-center p-5 rounded-full fixed bottom-5 left-1/2 -translate-x-1/2 z-50"
       >
         <span className="material-symbols-rounded">undo</span>
       </button>

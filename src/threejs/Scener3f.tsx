@@ -1,8 +1,8 @@
-import { Perf } from "r3f-perf";
 import {
   Center,
   Html,
   OrbitControls,
+  PerspectiveCamera,
   useGLTF,
   useTexture,
 } from "@react-three/drei";
@@ -21,6 +21,8 @@ function Scener3f() {
   const usedAppContext = useContext(appContext);
   const usedAudioContext = useContext(audioContext);
   const pcScreenTextureRef = useRef<THREE.Texture>();
+  const recordInnerTextureRef = useRef<THREE.Texture>();
+  const pcScreenRef = useRef();
 
   const audio = new Audio("sweeping forest.mp3");
   audio.loop = true;
@@ -35,16 +37,26 @@ function Scener3f() {
     }
   };
 
-  const { nodes } = useGLTF("/models/scene.glb") as unknown as {
+  const { nodes } = useGLTF("/models/scene2.glb") as unknown as {
     nodes: { [key: string]: THREE.Mesh };
   };
+
   useEffect(() => {
     console.log(usedAppContext.overlay);
   }, [usedAppContext.overlay]);
 
-  const bakedTexture = useTexture("/models/Baked2.jpg");
-  bakedTexture.flipY = false;
-  bakedTexture.minFilter = THREE.LinearFilter;
+  const darkTexture = useTexture("/models/Baked2.jpg");
+  const lightTexture = useTexture("/models/BakedLight.jpg");
+  
+  darkTexture.flipY = false;
+  darkTexture.minFilter = THREE.LinearFilter;
+  darkTexture.colorSpace = THREE.SRGBColorSpace;
+
+
+
+  lightTexture.flipY = false;
+  lightTexture.minFilter = THREE.LinearFilter;
+  lightTexture.colorSpace = THREE.SRGBColorSpace;
 
   pcScreenTextureRef.current = useTexture("/pc_screen_1.png");
   pcScreenTextureRef.current.minFilter = THREE.NearestMipmapLinearFilter;
@@ -52,9 +64,15 @@ function Scener3f() {
   pcScreenTextureRef.current.offset.x = -0.55;
   pcScreenTextureRef.current.wrapT = THREE.RepeatWrapping;
 
+  recordInnerTextureRef.current = useTexture("/models/test.png");
+  recordInnerTextureRef.current.minFilter = THREE.LinearFilter;
+  recordInnerTextureRef.current.repeat.set(1, 1);
+
   useFrame(() => {
     pcScreenTextureRef.current &&
       (pcScreenTextureRef.current.offset.y += 0.0005);
+    
+    recordInnerTextureRef.current && (recordInnerTextureRef.current.rotation += 0.0005)
   });
 
   const Poi = ({ label, position }: POIProps) => {
@@ -63,7 +81,6 @@ function Scener3f() {
       <Html
         zIndexRange={[1, 10]}
         distanceFactor={8}
-        occlude
         center
         position={position}
       >
@@ -72,7 +89,7 @@ function Scener3f() {
             onClick={() => {
               playAudio(audio);
             }}
-            className="material-symbols-rounded bg-black/50 w-6 h-6 backdrop-blur-md hover:opacity-100 text-sm rounded-full duration-300"
+            className="material-symbols-rounded bg-black/50 text-white w-6 h-6 backdrop-blur-md hover:opacity-100 text-sm rounded-full duration-300"
           >
             {usedAudioContext.isPlaying ? "pause" : "play_arrow"}
           </button>
@@ -94,7 +111,7 @@ function Scener3f() {
               {!hovered ? (
                 <div className="w-1 h-1 rounded-full bg-white"></div>
               ) : (
-                <span className="px-2 text-sm tracking-wide">{label}</span>
+                <span className="px-2 text-sm tracking-wide text-white">{label}</span>
               )}
             </div>
           </div>
@@ -106,33 +123,37 @@ function Scener3f() {
   return (
     <>
       <OrbitControls
+      enabled={true}
         makeDefault
-        enablePan={false}
         maxAzimuthAngle={Math.PI * 0.5}
         minAzimuthAngle={Math.PI * 0}
         maxPolarAngle={Math.PI * 0.5}
       />
+      <PerspectiveCamera makeDefault position={[5,1,5]}/>
 
       <Center>
         <mesh geometry={nodes.Baked.geometry}>
-          <meshBasicMaterial map={bakedTexture} />
+          <meshBasicMaterial map={usedAppContext.darkMode ? darkTexture : lightTexture} />
         </mesh>
-        <mesh geometry={nodes.CubeLight.geometry} position={[-1.53, 0.6, -1]}>
+        <mesh geometry={nodes.CubeLight.geometry} position={nodes.CubeLight.position}>
           <meshBasicMaterial color={0xffffff} />
         </mesh>
         <mesh
           geometry={nodes.TripodLight.geometry}
-          position={[2.03, 0.55, -0.7]}
+          position={nodes.TripodLight.position}
         >
           <meshBasicMaterial color={0xffffff} />
         </mesh>
-        <mesh geometry={nodes.Screen.geometry} position={[0.335, 0.38, -0.77]}>
+        <mesh ref={pcScreenRef.current} geometry={nodes.Screen.geometry} position={nodes.Screen.position}>
           <meshBasicMaterial map={pcScreenTextureRef.current} />
         </mesh>
-        <Poi label={OverlayState.Projects} position={[0.31, 0.4, -0.5]} />
-        <Poi label={OverlayState.Music} position={[2.07, -0.17, 0.12]} />
-        <Poi label={OverlayState.Artwork} position={[-2, 0.5, 0.55]} />
-        <Poi label={OverlayState.Skills} position={[-1.7, 0.5, 2.5]} />
+        <mesh geometry={nodes.RecordInner.geometry} position={nodes.RecordInner.position}>
+          <meshBasicMaterial map={ recordInnerTextureRef.current} />
+        </mesh>
+        <Poi label={OverlayState.Projects} position={[1.27, 1, -0.7]} />
+        <Poi label={OverlayState.Music} position={[3, 0.7, -0.08]} />
+        <Poi label={OverlayState.Artwork} position={[-1.2, 1.5, 0.37]} />
+        <Poi label={OverlayState.Skills} position={[-0.7, 1.2, 2.2]} />
       </Center>
     </>
   );

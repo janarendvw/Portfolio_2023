@@ -10,17 +10,9 @@
     scrollbar-width: thin;
 }
 
-html {
-    background: #111;
-    color: #fff;
+*{
+    transition: color 0.5s ease-in-out, background-color 0.5s ease-in-out, fill 0.5s ease-in-out, border-color 0.5s ease-in-out;
 }
-
-/* *{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    overflow: hidden;
-} */
 
 .point {
     position: absolute;

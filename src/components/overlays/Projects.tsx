@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import ProjectViewCompact from "./projectiews/ProjectViewCompact";
 import ProjectViewFull from "./projectiews/ProjectViewFull";
 
 function Projects() {
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
- const [gridCols, setGridCols] = useState<number>(4);
+ const [gridCols, setGridCols] = useState<number>(1);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
 
     if (window.innerWidth < 768) {
       setGridCols(1);
@@ -71,25 +71,25 @@ function Projects() {
   const placeholderProjects = gridCols - (projects.length % gridCols);
 
   return (
-    <div className="flex flex-col items-center gap-12 py-24 px-12">
+    <div className="flex flex-col items-center gap-12 py-24 px-12 max-w-screen-2xl">
       <h1 className="text-5xl font-semibold">Projects</h1>
       <div className="flex justify-end gap-2 w-full">
         <button
           onClick={() => setViewMode("grid")}
-          className={`rounded px-3 justify-center text-sm tracking-wide border border-blue-800/20 ${
-            viewMode === "grid" ? "bg-blue-800/50" : "bg-blue-800/5"
+          className={`rounded px-3 py-1 justify-center text-sm tracking-wide ${
+            viewMode === "grid" ? "bg-blue-800/50" : ""
           } hover:bg-blue-600/50 duration-100 text-blue-400 flex w-fit items-center gap-2 ${
-            viewMode === "grid" ? "bg-blue-600/50" : ""
+            viewMode === "grid" ? "bg-blue-600 text-white" : ""
           }`}
         >
           <span className="material-symbols-rounded">grid_view</span>Compact
         </button>
         <button
           onClick={() => setViewMode("list")}
-          className={`rounded px-3 justify-center text-sm tracking-wide border border-blue-800/20 ${
-            viewMode !== "grid" ? "bg-blue-800/50" : "bg-blue-800/5"
+          className={`rounded px-3 py-1 justify-center text-sm tracking-wide ${
+            viewMode !== "grid" ? "bg-blue-800/50" : ""
           } hover:bg-blue-600/50 duration-100 text-blue-400 flex w-fit items-center gap-2 ${
-            viewMode === "list" ? "bg-blue-600/50" : ""
+            viewMode === "list" ? "bg-blue-600 text-white" : ""
           }`}
         >
           <span className="material-symbols-rounded">fullscreen</span>Expanded
