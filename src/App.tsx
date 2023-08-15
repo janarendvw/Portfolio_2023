@@ -2,17 +2,19 @@ import { Outlet } from "react-router-dom";
 import "./App.css";
 import Icon from "./assets/Icon";
 import { appContext, audioContext } from "./Contexts";
-import { useState } from "react";
+import { Suspense, lazy, useState } from "react";
 import OverlayState from "./Enums";
-import OverlayContainer from "./components/overlays/OverlayContainer";
 import GestureInstructions from "./components/GestureInstructions";
 import AudioControls from "./components/AudioControls";
 import DarkModeSwitch from "./components/DarkModeSwitch";
+
+const OverlayContainer = lazy(() => import("./components/overlays/OverlayContainer"));
 
 function App() {
   const [overlay, setOverlay] = useState<OverlayState>(OverlayState.null);
   const [darkMode, setDarkMode] = useState<boolean>(true);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
+
 
   return (
     <>
@@ -27,7 +29,7 @@ function App() {
         <AudioControls />
         <appContext.Provider value={{ overlay, setOverlay, darkMode, setDarkMode }}>
           <DarkModeSwitch />
-          {overlay !== OverlayState.null && <OverlayContainer />}
+          <Suspense fallback={null}>{overlay !== OverlayState.null && <OverlayContainer />}</Suspense>
           <Outlet />
         </appContext.Provider>
       </audioContext.Provider>

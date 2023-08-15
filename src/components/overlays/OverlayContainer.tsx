@@ -26,7 +26,7 @@ function OverlayContainer() {
         onClick={() => {
           usedAppContext.setOverlay(OverlayState.null);
         }}
-        className="hover:shadow-lg hover:bg-white hover:text-black text-white bg-blue-600 duration-200 flex items-center justify-center p-5 rounded-full fixed bottom-5 left-1/2 -translate-x-1/2 z-50"
+        className="shadow-lg hover:bg-white hover:text-black text-white bg-blue-600 dark:bg-zinc-600 dark:hover:bg-white duration-200 flex items-center justify-center p-5 rounded-full fixed bottom-5 left-1/2 -translate-x-1/2 z-50"
       >
         <span className="material-symbols-rounded">undo</span>
       </button>

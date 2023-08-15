@@ -62,8 +62,8 @@ function Skills() {
         experience concerning web development techniques
       </p>
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 xl:grid-cols-3">
-        {skillsRef.current.sort((a, b) => b.level - a.level).map((skill) => (
-          <Skillbar skillName={skill.name} skillLevel={skill.level} />
+        {skillsRef.current.sort((a, b) => b.level - a.level).map((skill, i) => (
+          <Skillbar key={i} animationOrder={i} skillName={skill.name} skillLevel={skill.level} />
         ))}
       </div>
     </div>
