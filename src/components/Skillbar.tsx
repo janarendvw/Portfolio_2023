@@ -12,9 +12,6 @@ function Skillbar({ skillLevel, skillName }: Props) {
     setLevel(skillLevel);
   }, [skillLevel]);
 
-  const properties = {
-    totalWidth: "100%",
-  };
   return (
     <>
       {skillLevel < 90 ? (
@@ -23,17 +20,17 @@ function Skillbar({ skillLevel, skillName }: Props) {
             {skillName}
           </h2>
           <div
-            className={`bg-white/10 rounded-sm w-[${properties.totalWidth}] h-2 my-2`}
+            className='bg-white/10 rounded-sm h-2 my-2'
           >
             <div
-              className="bg-gradient-to-l from-blue-400 to-blue-500 h-full duration-1000 delay-500 ease-in-out rounded-sm"
-              style={{ width: level + "%" }}
+              className="origin-left scale-x-0 bg-gradient-to-l from-blue-400 to-blue-500 h-full duration-1000 ease-in-out rounded-sm"
+              style={{ transform: `scaleX(${level / 100})` }}
             ></div>
           </div>
         </div>
       ) : (
-        <div className="relative w-screen max-w-sm bg-blue-600 overflow-clip rounded">
-              <div style={{opacity: level + '%'}} className="absolute w-full h-full bg-400 bg-center bg-gradient-to-l from-blue-200/20 to-green-200/20 duration-1000 delay-1000" />
+        <div className="relative w-screen max-w-sm bg-gradient-to-bl bg-400 from-blue-500 to-purple-600 bg-center overflow-clip rounded">
+             
 
           <div className="px-4 py-2">
             <div className="flex justify-between">
@@ -43,12 +40,14 @@ function Skillbar({ skillLevel, skillName }: Props) {
               <p className="text-sm text-white">Expert</p>
             </div>
             <div
-              className={`bg-white/10 rounded-sm w-[${properties.totalWidth}] h-2 my-2`}
+              className='bg-white/10 rounded-sm h-2 my-2'
             >
+              
               <div
-                className="bg-white h-full duration-1000 delay-500 ease-in-out rounded-sm"
-                style={{ width: level + "%" }}
+                className="origin-left scale-x-0 bg-white h-full duration-1000 ease-in-out rounded-sm"
+                style={{ transform: `scaleX(${level / 100})` }}
               ></div>
+              
             </div>
           </div>
         </div>

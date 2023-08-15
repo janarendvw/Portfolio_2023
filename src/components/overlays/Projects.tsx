@@ -77,7 +77,7 @@ function Projects() {
         <button
           onClick={() => setViewMode("grid")}
           className={`rounded px-3 py-1 justify-center text-sm tracking-wide ${
-            viewMode === "grid" ? "bg-blue-800/50" : ""
+            viewMode === "grid" ? "bg-blue-600" : ""
           } hover:bg-blue-600/50 duration-100 text-blue-400 flex w-fit items-center gap-2 ${
             viewMode === "grid" ? "bg-blue-600 text-white" : ""
           }`}
@@ -87,7 +87,7 @@ function Projects() {
         <button
           onClick={() => setViewMode("list")}
           className={`rounded px-3 py-1 justify-center text-sm tracking-wide ${
-            viewMode !== "grid" ? "bg-blue-800/50" : ""
+            viewMode !== "grid" ? "bg-blue-600" : ""
           } hover:bg-blue-600/50 duration-100 text-blue-400 flex w-fit items-center gap-2 ${
             viewMode === "list" ? "bg-blue-600 text-white" : ""
           }`}
@@ -100,20 +100,20 @@ function Projects() {
           style={{ gridTemplateColumns: `repeat(${gridCols}, 1fr)` }}
           className={`grid gap-10`}
         >
-          {projects.map((project) => (
-            <ProjectViewCompact project={project} />
+          {projects.map((project, index) => (
+            <ProjectViewCompact key={index} project={project} />
           ))}
           {placeholderProjects > 0 &&
-            [...Array(placeholderProjects)].map(() => {
+            [...Array(placeholderProjects)].map((_, i) => {
               return (
-                <div className="h-full w-full bg-zinc-700/20 rounded-md"></div>
+                <div key={i} className="h-full w-full bg-zinc-700/20 rounded-md"></div>
               );
             })}
         </div>
       ) : (
         <div className="flex flex-col gap-[20vh] py-12">
-          {projects.map((project) => (
-            <ProjectViewFull project={project} />
+          {projects.map((project, index) => (
+            <ProjectViewFull key={index} project={project} />
           ))}
         </div>
       )}

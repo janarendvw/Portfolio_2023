@@ -12,7 +12,6 @@ import DarkModeSwitch from "./components/DarkModeSwitch";
 function App() {
   const [overlay, setOverlay] = useState<OverlayState>(OverlayState.null);
   const [darkMode, setDarkMode] = useState<boolean>(true);
-  const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
 
   return (
@@ -23,9 +22,9 @@ function App() {
       </div>
       {overlay === OverlayState.null && <GestureInstructions />}
       <audioContext.Provider
-        value={{ audio, setAudio, isPlaying, setIsPlaying }}
+        value={{isPlaying, setIsPlaying }}
       >
-        {audio && <AudioControls />}
+        <AudioControls />
         <appContext.Provider value={{ overlay, setOverlay, darkMode, setDarkMode }}>
           <DarkModeSwitch />
           {overlay !== OverlayState.null && <OverlayContainer />}

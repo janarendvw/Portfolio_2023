@@ -9,11 +9,9 @@ type AppContext = {
 }
 
 type AudioContext = {
-    audio: HTMLAudioElement | null;
-    setAudio: (audio: HTMLAudioElement) => void;
     isPlaying: boolean;
     setIsPlaying: (isPlaying: boolean) => void;
 }
 
 export const appContext = createContext<AppContext>({overlay: OverlayState.null, setOverlay: () => {}, darkMode: false, setDarkMode: () => {}});
-export const audioContext = createContext<AudioContext>({audio: new Audio(), setAudio: () => {}, isPlaying: false, setIsPlaying: () => {}});
+export const audioContext = createContext<AudioContext>({isPlaying: false, setIsPlaying: () => {}});

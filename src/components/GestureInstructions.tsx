@@ -12,9 +12,9 @@ const gestures = [
 function GestureInstructions() {
   return (
     <div className="fixed z-50 left-5 bottom-5 flex items-center gap-12 opacity-50 hover:opacity-100 duration-500">
-      {gestures.map((gesture) => {
+      {gestures.map((gesture, index) => {
         return (
-          <div className="flex items-center gap-4">
+          <div key={`gesture-${index}`} className="flex items-center gap-4">
             <span className="material-symbols-rounded text-2xl">
               {gesture.icon}
             </span>

@@ -6,7 +6,7 @@ import {
   useGLTF,
   useTexture,
 } from "@react-three/drei";
-import { useContext, useEffect, useRef, useState } from "react";
+import {useContext, useRef, useState } from "react";
 import * as THREE from "three";
 import { appContext, audioContext } from "../Contexts";
 import OverlayState from "../Enums";
@@ -21,59 +21,42 @@ function Scener3f() {
   const usedAppContext = useContext(appContext);
   const usedAudioContext = useContext(audioContext);
   const pcScreenTextureRef = useRef<THREE.Texture>();
-  const recordInnerTextureRef = useRef<THREE.Texture>();
   const pcScreenRef = useRef();
 
-  const audio = new Audio("sweeping forest.mp3");
-  audio.loop = true;
-  audio.volume = 0.5;
-
-  const playAudio = (audio: HTMLAudioElement) => {
+  const playAudio = () => {
     if (usedAudioContext.isPlaying === true) {
       usedAudioContext.setIsPlaying(false);
     } else {
-      usedAudioContext.setAudio(audio);
       usedAudioContext.setIsPlaying(true);
     }
   };
 
-  const { nodes } = useGLTF("/models/scene2.glb") as unknown as {
+  const { nodes } = useGLTF("/models/scene-draco.glb") as unknown as {
     nodes: { [key: string]: THREE.Mesh };
   };
 
-  useEffect(() => {
-    console.log(usedAppContext.overlay);
-  }, [usedAppContext.overlay]);
-
   const darkTexture = useTexture("/models/Baked2.jpg");
   const lightTexture = useTexture("/models/BakedLight.jpg");
-  
-  darkTexture.flipY = false;
-  darkTexture.minFilter = THREE.LinearFilter;
-  darkTexture.colorSpace = THREE.SRGBColorSpace;
-
-
-
-  lightTexture.flipY = false;
-  lightTexture.minFilter = THREE.LinearFilter;
-  lightTexture.colorSpace = THREE.SRGBColorSpace;
-
   pcScreenTextureRef.current = useTexture("/pc_screen_1.png");
-  pcScreenTextureRef.current.minFilter = THREE.NearestMipmapLinearFilter;
-  pcScreenTextureRef.current.repeat.set(13, 20);
-  pcScreenTextureRef.current.offset.x = -0.55;
-  pcScreenTextureRef.current.wrapT = THREE.RepeatWrapping;
 
-  recordInnerTextureRef.current = useTexture("/models/test.png");
-  recordInnerTextureRef.current.minFilter = THREE.LinearFilter;
-  recordInnerTextureRef.current.repeat.set(1, 1);
+  const textureInit = (darkTexture:THREE.Texture, lightTexture:THREE.Texture, pcScreenTextureRef:THREE.Texture) => {
+    darkTexture.flipY = false;
+    darkTexture.minFilter = THREE.LinearFilter;
+    darkTexture.colorSpace = THREE.SRGBColorSpace;
+    lightTexture.flipY = false;
+    lightTexture.minFilter = THREE.LinearFilter;
+    lightTexture.colorSpace = THREE.SRGBColorSpace;
+    pcScreenTextureRef.minFilter = THREE.NearestMipmapLinearFilter;
+    pcScreenTextureRef.repeat.set(13, 20);
+    pcScreenTextureRef.offset.x = -0.55;
+    pcScreenTextureRef.wrapT = THREE.RepeatWrapping;
+  }
+  textureInit(darkTexture, lightTexture, pcScreenTextureRef.current);
 
   useFrame(() => {
     pcScreenTextureRef.current &&
-      (pcScreenTextureRef.current.offset.y += 0.0005);
-    
-    recordInnerTextureRef.current && (recordInnerTextureRef.current.rotation += 0.0005)
-  });
+      (pcScreenTextureRef.current.offset.y += 0.002);
+      });
 
   const Poi = ({ label, position }: POIProps) => {
     const [hovered, setHovered] = useState(false);
@@ -87,7 +70,7 @@ function Scener3f() {
         {label === OverlayState.Music ? (
           <button
             onClick={() => {
-              playAudio(audio);
+              playAudio();
             }}
             className="material-symbols-rounded bg-black/50 text-white w-6 h-6 backdrop-blur-md hover:opacity-100 text-sm rounded-full duration-300"
           >
@@ -139,24 +122,24 @@ function Scener3f() {
           <meshBasicMaterial color={0xffffff} />
         </mesh>
         <mesh
-          geometry={nodes.TripodLight.geometry}
-          position={nodes.TripodLight.position}
+          geometry={nodes.TripoLight.geometry}
+          position={nodes.TripoLight.position}
         >
           <meshBasicMaterial color={0xffffff} />
         </mesh>
         <mesh ref={pcScreenRef.current} geometry={nodes.Screen.geometry} position={nodes.Screen.position}>
           <meshBasicMaterial map={pcScreenTextureRef.current} />
         </mesh>
-        <mesh geometry={nodes.RecordInner.geometry} position={nodes.RecordInner.position}>
-          <meshBasicMaterial map={ recordInnerTextureRef.current} />
-        </mesh>
         <Poi label={OverlayState.Projects} position={[1.27, 1, -0.7]} />
         <Poi label={OverlayState.Music} position={[3, 0.7, -0.08]} />
         <Poi label={OverlayState.Artwork} position={[-1.2, 1.5, 0.37]} />
         <Poi label={OverlayState.Skills} position={[-0.7, 1.2, 2.2]} />
       </Center>
+
     </>
   );
+
+
 }
 
 export default Scener3f;

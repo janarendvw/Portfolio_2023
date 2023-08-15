@@ -17,9 +17,9 @@ function ProjectViewFull({project}: {project: Project}) {
         </h1>
         <div className="flex gap-2">
           {project.tech &&
-            project.tech.map((tech) => {
+            project.tech.map((tech, index) => {
               return (
-                <span className="text-xs bg-gray-200  dark:bg-zinc-700 px-1 opacity-50 hover:opacity-100 capitalize">
+                <span key={`tech-${index}`} className="text-xs bg-gray-200  dark:bg-zinc-700 px-1 opacity-50 hover:opacity-100 capitalize">
                   {tech}
                 </span>
               );
