@@ -3,30 +3,29 @@ import ProjectViewCompact from "./projectiews/ProjectViewCompact";
 import ProjectViewFull from "./projectiews/ProjectViewFull";
 
 function Projects() {
-  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
- const [gridCols, setGridCols] = useState<number>(1);
+  const [viewMode, setViewMode] = useState<"grid" | "list">("list");
+  const [gridCols, setGridCols] = useState<number>(1);
 
   useLayoutEffect(() => {
-
     if (window.innerWidth < 768) {
       setGridCols(1);
     } else if (window.innerWidth < 1024) {
       setGridCols(2);
-    } else if (window.innerWidth < 1600){
+    } else if (window.innerWidth < 1600) {
       setGridCols(3);
     } else {
-      setGridCols(4)
-      }
+      setGridCols(4);
+    }
 
     window.addEventListener("resize", () => {
       if (window.innerWidth < 768) {
         setGridCols(1);
       } else if (window.innerWidth < 1024) {
         setGridCols(2);
-      } else if (window.innerWidth < 1400){
+      } else if (window.innerWidth < 1400) {
         setGridCols(3);
       } else {
-      setGridCols(4)
+        setGridCols(4);
       }
     });
 
@@ -37,12 +36,42 @@ function Projects() {
 
   const projects = [
     {
+      title: "Farbe - Educational platform for color theory",
+      tech: ["Next.js", "TailwindCSS", "TypeScript", "Firebase"],
+      description:
+        ">Work in progress< \n Farbe is an educational platform for color theory. It provides a gamified learning experience for users to learn about color theory and its applications.",
+      image: "/project_images/farbe.png",
+      link: "http://farbe.limitlesscode.nl"
+    },
+    {
+      title: "Limitlesscode - Portfolio",
+      tech: ["React", "TailwindCSS", "TypeScript", "Three.js", "WebGL"],
+      description:
+        "A portfolio website for Limitlesscode. This website showcases the projects and skills of myself.",
+      image: "/project_images/limitlesscode.png",
+    },
+    {
+      title: "Plantr - Plant Care App",
+      tech: ["React", "TailwindCSS", "Firebase", "TypeScript"],
+      description:
+        "Plantr is a plant care app that helps you keep track of your plants and their needs. You can add plants to your collection, set watering and fertilizing schedules, and get notified when it's time to take care of them.",
+      image: "/project_images/plantr.png",
+      link: "/plantr.html",
+    },
+
+ {
+      title: "Arm position data visualization",
+      tech: ["c#", "unity", "typescript", "React"],
+      description:
+        "A data visualization tool to track the position of the arm in real-time. The tool is used to track patients suffering from chronic shoulder pain in a VR environment. This data can be used to analyze the movement of the arm and provide feedback to the patient.",
+      image: "/project_images/arm_data.png",
+    },
+    {
       title: "Fyndr Wiki Landing Page",
       tech: ["vue", "tailwindcss", "typescript", "Nuxt3"],
       description:
         "By combining a wide range of sources into one platform, students can learn faster and better. Fynd R makes it even easier by providing various information structures, including roadmaps with diagrams and playlists curated by users.",
       image: "/project_images/fyndr-wiki.png",
-      link: "https://fyndr.wiki",
     },
     {
       title: "Fyndr Databank Design",
@@ -50,7 +79,6 @@ function Projects() {
       description:
         "It was my task to create and implement a robust and complete design system for the Fyndr Databank. The databank is a platform where students can find all kinds of information about their study. The databank is a platform where students can find all kinds of information about their study.",
       image: "/project_images/fyndr.png",
-      link: "https://openict.fyndr.wiki",
     },
     {
       title: "MTG Orders Dashboard",
@@ -60,12 +88,12 @@ function Projects() {
       image: "/project_images/mtg.jpg",
     },
     {
-      title: 'Shure EMEA Landing Pages',
+      title: "Shure EMEA Landing Pages",
       tech: ["HTML", "CSS", "Bootstrap4"],
       description:
         "A series of landing pages for Shure EMEA. These landing pages are used to promote the products of Shure EMEA.",
       image: "/project_images/shure.png",
-    }
+    },
   ];
 
   const placeholderProjects = gridCols - (projects.length % gridCols);
@@ -106,7 +134,10 @@ function Projects() {
           {placeholderProjects > 0 &&
             [...Array(placeholderProjects)].map((_, i) => {
               return (
-                <div key={i} className="h-full w-full bg-zinc-700/20 rounded-md"></div>
+                <div
+                  key={i}
+                  className="h-full w-full bg-zinc-700/20 rounded-md"
+                ></div>
               );
             })}
         </div>

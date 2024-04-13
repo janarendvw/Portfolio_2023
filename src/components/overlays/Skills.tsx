@@ -14,7 +14,7 @@ function Skills() {
     },
     {
       name: "Typescript",
-      level: 45,
+      level: 85,
     },
     {
       name: "Javascript",
@@ -50,7 +50,23 @@ function Skills() {
     },
     {
       name: "Python",
-      level: 90,
+      level: 60,
+    },
+    {
+      name: "Next.js",
+      level: 70,
+    },
+    {
+      name: "Prisma ORM",
+      level: 60,
+    },
+    {
+      name: "SQL",
+      level: 60,
+    },
+    {
+      name: "And more...",
+      level: 0,
     }
   ]);
 
@@ -63,7 +79,7 @@ function Skills() {
       </p>
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 xl:grid-cols-3">
         {skillsRef.current.sort((a, b) => b.level - a.level).map((skill, i) => (
-          <Skillbar key={i} animationOrder={i} skillName={skill.name} skillLevel={skill.level} />
+          <Skillbar key={skill.name} animationOrder={i} skillName={skill.name} skillLevel={skill.level} />
         ))}
       </div>
     </div>
